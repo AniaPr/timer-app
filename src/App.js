@@ -8,15 +8,21 @@ const App = () => {
   const [timer, setTimer] = useState(null);
 
   const start = () => {
-    setTimer(
-      setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1)
-    );
+    if (!timer)
+      setTimer(
+        setInterval(() => {
+          setTime((prevTime) => prevTime + 1);
+        }, 1)
+      );
   };
 
   const stop = () => {
-    setTimer(setInterval(() => clearInterval(timer)));
+    clearInterval(timer);
+    setTimer(null);
+  };
+
+  const reset = () => {
+    setTime(0);
   };
 
   useEffect(() => {
@@ -30,7 +36,7 @@ const App = () => {
       <Timer time={time} />
       <Button onClick={start}>start</Button>
       <Button onClick={stop}>stop</Button>
-      <Button onClick={() => setTime(0)}>reset</Button>
+      <Button onClick={reset}>reset</Button>
     </div>
   );
 };
